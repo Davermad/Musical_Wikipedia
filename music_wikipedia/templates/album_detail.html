@@ -1,0 +1,62 @@
+{% load static %}
+
+{% block title %}{{ album.name }}{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album.name }}</title>
+    <link rel="stylesheet" href="{% static 'style_album_detail.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>{{ album.name }}</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+            <a href="{% url 'get_albums' %}">Назад к списку альбомов</a>
+            <a href="{% url 'index' %}">Главная</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Описание</h2>
+            <p>{{ album.description }}</p>
+        </section>
+        <section>
+            <h2>Песни альбома</h2>
+            {% if songs %}
+            <ul class="item-list">
+                {% for song in songs %}
+                <li class="item">
+                    <h3>{{ song.name }}</h3>
+                    <a class="btn" href="{% url 'get_song_detail' song.id %}">Подробнее</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Нет песен в этом альбоме.</p>
+            {% endif %}
+        </section>
+        <section>
+            <h2>Обложка альбома</h2>
+            {% if album.cover_image %}
+            <img src="{{ album.cover_image.url }}" alt="{{ album.name }}" class="cover-image">
+            {% else %}
+            <p>Нет изображения обложки для этого альбома.</p>
+            {% endif %}
+        </section>
+        <section>
+            <h2>Дата выпуска</h2>
+            <p>{{ album.release_date }}</p>
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}

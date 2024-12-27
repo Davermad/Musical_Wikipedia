@@ -1,0 +1,55 @@
+{% load static %}
+
+{% block title %}Список песен{% endblock %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список песен</title>
+    <link rel="stylesheet" href="{% static 'style_songs.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Список песен</h1>
+            <nav>
+                <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'search' %}">Поиск</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <ul class="card-list">
+            {% for song in songs %}
+                <li class="card">
+                    <h3>{{ song.name }}</h3>
+                    <p>{{ song.description|truncatewords:10 }}</p>
+                    <a class="btn" href="{% url 'get_song_detail' song.id %}">Подробнее</a>
+                </li>
+            {% empty %}
+                <li>Нет песен для отображения.</li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            {% if songs.has_previous %}
+                <a href="?page={{ songs.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span>Страница {{ songs.number }} из {{ songs.paginator.num_pages }}</span>
+            {% if songs.has_next %}
+                <a href="?page={{ songs.next_page_number }}">Следующая</a>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
+{% endblock %}

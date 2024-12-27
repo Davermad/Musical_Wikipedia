@@ -1,0 +1,57 @@
+{% load static %}
+
+{% block title %}{{ song.name }}{% endblock %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ song.name }}</title>
+    <link rel="stylesheet" href="{% static 'style_song_detail.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ song.name }}</h1>
+            <nav>
+                <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+                <a href="{% url 'get_songs' %}">Назад к списку песен</a>
+                <a href="{% url 'index' %}">Главная</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>Описание</h2>
+            <p>{{ song.description }}</p>
+        </section>
+
+        <section>
+            <h2>Длительность</h2>
+            <p>{{ song.duration }}</p>
+        </section>
+
+        <section>
+            <h2>Текст песни</h2>
+            <pre>{{ song.lyrics }}</pre>
+        </section>
+
+        <section>
+            <h2>Аудиофайл</h2>
+            <audio controls>
+                <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                Ваш браузер не поддерживает аудиоплеер.
+            </audio>
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}

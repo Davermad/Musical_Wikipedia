@@ -1,0 +1,93 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты поиска</title>
+    <link rel="stylesheet" href="{% static 'style_search.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Результаты поиска</h1>
+            <form action="/search/" method="get">
+                <input type="text" name="q" value="{{ query }}" placeholder="Поиск...">
+                <button type="submit">Искать</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="container">
+        <p>Вы искали: "{{ query }}"</p>
+
+        <section>
+            <h2>Группы</h2>
+            <ul class="card-list">
+                {% for group in groups %}
+                    <li class="card">
+                        <a href="{% url 'get_group_detail' group.pk %}">
+                            <h3>{{ group.name }}</h3>
+                            <p>{{ group.description|truncatewords:10 }}</p>
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Нет результатов</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Альбомы</h2>
+            <ul class="card-list">
+                {% for album in albums %}
+                    <li class="card">
+                        <a href="{% url 'get_album_detail' album.pk %}">
+                            <h3>{{ album.name }}</h3>
+                            <p>{{ album.description|truncatewords:10 }}</p>
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Нет результатов</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Песни</h2>
+            <ul class="card-list">
+                {% for song in songs %}
+                    <li class="card">
+                        <a href="{% url 'get_song_detail' song.pk %}">
+                            <h3>{{ song.name }}</h3>
+                            <p>{{ song.description|truncatewords:10 }}</p>
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Нет результатов</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Участники групп</h2>
+            <ul class="card-list">
+                {% for member in members %}
+                    <li class="card">
+                        <a href="{% url 'get_member_detail' member.pk %}">
+                            <h3>{{ member.name }}</h3>
+                            <p>{{ member.biography|truncatewords:10 }}</p>
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Нет результатов</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Музыкальный портал</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% load static %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ group.name }}</title>
+    <link rel="stylesheet" href="{% static 'style_group_detail.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>{{ group.name }}</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+            <a href="{% url 'get_groups' %}">Назад к списку групп</a>
+            <a href="{% url 'index' %}">Главная</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Описание</h2>
+            <p>{{ group.description }}</p>
+        </section>
+        <section>
+            <h2>Альбомы</h2>
+            {% if albums %}
+            <ul class="item-list">
+                {% for album in albums %}
+                <li class="item">
+                    <h3>{{ album.name }}</h3>
+                    <p>{{ album.description|truncatewords:20 }}</p>
+                    <a class="btn" href="{% url 'get_album_detail' album.id %}">Подробнее</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Нет альбомов для этой группы.</p>
+            {% endif %}
+        </section>
+        <section>
+            <h2>Песни</h2>
+            {% if songs %}
+            <ul class="item-list">
+                {% for song in songs %}
+                <li class="item">
+                    <h3>{{ song.name }}</h3>
+                    <a class="btn" href="{% url 'get_song_detail' song.id %}">Подробнее</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Нет песен для этой группы.</p>
+            {% endif %}
+        </section>
+        <section>
+            <h2>Участники</h2>
+            {% if members %}
+            <ul class="item-list">
+                {% for member in members %}
+                <li class="item">
+                    <h3>{{ member.name }}</h3>
+                    <p>{{ member.role }}</p>
+                    <a class="btn" href="{% url 'get_member_detail' member.id %}">Подробнее</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Нет участников для этой группы.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}

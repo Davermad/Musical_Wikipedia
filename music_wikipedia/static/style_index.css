@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+}
+
+h2 {
+    color: #444;
+    text-align: center;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header form {
+    display: flex;
+    align-items: center;
+    background-color: #fff; /* Фон формы поиска */
+    border-radius: 8px; /* Скругленные углы */
+    border: 1px solid #ddd; /* Легкая граница */
+    padding: 5px 10px; /* Отступы внутри формы */
+}
+
+header input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: none; /* Убираем внутреннюю границу */
+    border-radius: 4px; /* Скругляем только углы ввода */
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+header button {
+    padding: 10px;
+    background: #f90;
+    color: #fff;
+    border: none;
+    border-radius: 4px; /* Скругленные углы кнопки */
+    cursor: pointer;
+}
+
+header button:hover {
+    background: #fb0;
+}
+
+/* Навигация */
+nav {
+    display: flex;
+    justify-content: center; /* Центрируем навигацию */
+    background-color: #fff;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px; /* Добавлен отступ сверху */
+    border-radius: 8px; /* Скругляем углы */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 20px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #f90;
+    color: #fff;
+    border-radius: 4px;
+}
+
+/* Карточки */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.card p {
+    margin: 10px 0 0;
+    color: #666;
+}
+
+/* Подвал */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* Адаптивность: Скрытие формы поиска на мобильных устройствах */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    header button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,49 @@
+{% load static %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список групп</title>
+    <link rel="stylesheet" href="{% static 'style_groups.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Список групп</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'search' %}">Поиск</a>
+        </nav>
+    </header>
+    <main>
+        <ul class="item-list">
+            {% for group in groups %}
+            <li class="item">
+                <h2>{{ group.name }}</h2>
+                <p>{{ group.description|truncatewords:20 }}</p>
+                <a class="btn" href="{% url 'get_group_detail' group.id %}">Подробнее</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            {% if groups.has_previous %}
+            <a href="?page={{ groups.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span>Страница {{ groups.number }} из {{ groups.paginator.num_pages }}</span>
+            {% if groups.has_next %}
+            <a href="?page={{ groups.next_page_number }}">Следующая</a>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
+{% endblock %}

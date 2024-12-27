@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="static/style_index.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Музыкальный портал</h1>
+            <nav>
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'get_groups' %}">Группы</a>
+                <a href="{% url 'get_albums' %}">Альбомы</a>
+                <a href="{% url 'get_songs' %}">Песни</a>
+                <form action="/search/" method="get" style="display: inline;">
+                    <input type="text" name="q" placeholder="Поиск...">
+                    <button type="submit">Искать</button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>Последние группы</h2>
+            <ul class="card-list">
+                {% for group in latest_groups %}
+                    <li class="card">
+                        <h3>{{ group.name }}</h3>
+                        <p>{{ group.description|truncatewords:10 }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Последние альбомы</h2>
+            <ul class="card-list">
+                {% for album in latest_albums %}
+                    <li class="card">
+                        <h3>{{ album.name }}</h3>
+                        <p>{{ album.description|truncatewords:10 }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Последние песни</h2>
+            <ul class="card-list">
+                {% for song in latest_songs %}
+                    <li class="card">
+                        <h3>{{ song.name }}</h3>
+                        <p>{{ song.description|truncatewords:10 }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Музыкальный портал</p>
+    </footer>
+</body>
+</html>

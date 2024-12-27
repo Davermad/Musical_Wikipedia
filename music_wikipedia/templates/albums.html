@@ -1,0 +1,49 @@
+{% load static %}
+
+{% block title %}Список альбомов{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список альбомов</title>
+    <link rel="stylesheet" href="{% static 'style_albums.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Список альбомов</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'search' %}">Поиск</a>
+        </nav>
+    </header>
+    <main>
+        <ul class="item-list">
+            {% for album in albums %}
+            <li class="item">
+                <h2>{{ album.name }}</h2>
+                <p>{{ album.description|truncatewords:20 }}</p>
+                <a class="btn" href="{% url 'get_album_detail' album.id %}">Подробнее</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            {% if albums.has_previous %}
+            <a href="?page={{ albums.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span>Страница {{ albums.number }} из {{ albums.paginator.num_pages }}</span>
+            {% if albums.has_next %}
+            <a href="?page={{ albums.next_page_number }}">Следующая</a>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+{% block title %}{{ member.name }}{% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ member.name }}</title>
+    <link rel="stylesheet" href="{% static 'style_member_detail.css' %}">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>{{ member.name }}</h1>
+        <nav>
+            <a href="javascript:void(0);" onclick="goBack()" class="btn-back">Назад</a>
+            <a href="{% url 'index' %}" class="btn-home">Главная</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Биография</h2>
+            <p>{{ member.biography }}</p>
+        </section>
+        <section>
+            <h2>Роль в группе</h2>
+            <p>{{ member.role }}</p>
+        </section>
+        <section>
+            <h2>Фотография</h2>
+            {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="member-photo">
+            {% else %}
+            <p>Нет фотографии для этого участника.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}
